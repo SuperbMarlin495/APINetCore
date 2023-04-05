@@ -2,10 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 
 
-
 using Microsoft.EntityFrameworkCore; //Uso del entityframework agregado por mi
 using APICoreWeb.Models; //Referencia para usar el BDcontext y es nombre del programa y la carpeta models
-using Microsoft.AspNetCore.Cors; //Intanciar los 
+using Microsoft.AspNetCore.Cors; //Intanciar los cors que vienen con sus reglas
 
 
 
