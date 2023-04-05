@@ -175,7 +175,7 @@ namespace APICoreWeb.Controllers
 
 
         [HttpDelete]
-        [Route("Eliminar/{idProducto:int")]
+        [Route("Eliminar/{idProducto:int}")]
 
         public IActionResult Eliminar(int idProducto)
         {
