@@ -172,3 +172,4 @@ C:\Users\3579360\Documents\Programacion\ProyectosPersonales\APICoreWeb\obj\Debug
 C:\Users\3579360\Documents\Programacion\ProyectosPersonales\APICoreWeb\obj\Debug\net6.0\APICoreWeb.pdb
 C:\Users\3579360\Documents\Programacion\ProyectosPersonales\APICoreWeb\obj\Debug\net6.0\APICoreWeb.genruntimeconfig.cache
 C:\Users\3579360\Documents\Programacion\ProyectosPersonales\APICoreWeb\obj\Debug\net6.0\ref\APICoreWeb.dll
+C:\Users\3579360\Documents\Programacion\ProyectosPersonales\APICoreWeb\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

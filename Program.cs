@@ -3,7 +3,47 @@ using APICoreWeb.Models;
 using System.Security.Cryptography.Xml;
 using System.Text.Json.Serialization;
 
+using Microsoft.AspNetCore.Authentication.JwtBearer;//Es para el uso de los paquetes instalados
+using Microsoft.IdentityModel.Tokens;//Uso de lso tokens de JWT
+using System.Text;
+
 var builder = WebApplication.CreateBuilder(args);
+
+#region JWT
+
+//Obtencion de la secretkey que esta en appsettings
+builder.Configuration.AddJsonFile("appsettings.json"); //es para agregar el archivo json de appsetting
+
+var secretkey = builder.Configuration.GetSection("setting").GetSection("secretkey").ToString();//Se le da el valor a secretkey que esta en appsettings
+var keyByte = Encoding.UTF8.GetBytes(secretkey);//Estamos conviertiendo la llave en bytes
+
+builder.Services.AddAuthentication(config =>
+{
+    config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme; //Darle el valor del esquema y sea por default
+    config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+
+}).AddJwtBearer(config =>
+{
+    config.RequireHttpsMetadata = false;
+    config.SaveToken = true;
+    config.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true, //Validacion de que el usuario tenga el token
+        IssuerSigningKey = new SymmetricSecurityKey(keyByte), //le pasamos el parametro de keybat que dijimos arriba de la clase 
+        ValidateIssuer = false, //la validacion de usuario
+        ValidateAudience = false
+    };
+
+});
+
+
+
+#endregion
+
+
+
+#region Add services to the container
 
 // Add services to the container.
 
@@ -11,6 +51,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+#endregion
 
 
 
@@ -51,6 +93,10 @@ builder.Services.AddCors(opt =>
 
 #endregion
 
+
+
+
+#region Referencias
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -59,13 +105,22 @@ var app = builder.Build();
    
 //}
 
+//Primeras referencia
 app.UseSwagger();
 app.UseSwaggerUI();
 
+
+
+//Segundas referencias
 app.UseCors(misRuleCors);//Aqui los activamos y en el controller le decimos donde aplicarlo
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
-ControllerActionEndpointConventionBuilder controllerActionEndpointConventionBuilder = app.MapControllers();
+app.MapControllers();
 
 app.Run();
+
+
+#endregion
